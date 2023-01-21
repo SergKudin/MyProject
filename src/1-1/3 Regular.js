@@ -18,7 +18,6 @@ console.log(validator.validateEmail(`firs_tpart@.se.en`));
 console.log(validator.validateEmail(`firstpart@.se.enddeded`));
 
 validator.validatePhone = function (phone) {
-    // /^(-* *)?(\+)?([- (]?\d[- )]?){10,12}/g
     const regexpPhone = /^(-* *)?(\+)?([- (]?\d[- )]?){10,12}/g;
     let checkString = phone.match(regexpPhone);
     checkString = (checkString == null) ? '' : checkString[0];
@@ -37,7 +36,6 @@ console.log(validator.validatePhone(`+48 (0989) 567 8901`));
 console.log(validator.validatePhone(`+38 (0 9 9) 5 6 7 8 9 0 1`));
 
 validator.validatePassword = function (pass) {
-    // 
     const regexpPass = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z_]{8,}/g;
     let checkString = pass.match(regexpPass);
     checkString = (checkString == null) ? '' : checkString[0];
