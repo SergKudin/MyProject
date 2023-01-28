@@ -25,12 +25,29 @@ let contents = readHttpLikeInput();
 
 // вот эту функцию собственно надо написать
 function parseTcpStringAsHttpRequest(string) {
-    return {
-        method: "...",
-        uri: "...",
-        headers: "...",
-        body: "...",
+    const simSplit = (index) => {
+        if (index === 0) {
+            return ' ';
+        } else {
+            return ':';
+        }
     };
+
+    const arrDataRequest = string.split(`\n`).map((item, index) => item.split(simSplit(index))).filter((item) => (item != ''));
+    const arrLength = arrDataRequest.length - 1;
+    const headers = arrDataRequest
+        .filter((item, index) => (index !== 0) & (index !== arrLength))
+        .reduce((acc, item) => {
+            acc[item[0]] = item[1];
+            return acc;
+        }, {});
+    let tcpStringAsHttpRequest = {
+        method: arrDataRequest[0][0],
+        uri: arrDataRequest[0][1],
+        headers,
+        body: ((arrLength > 0) & (arrDataRequest[arrLength].length < 2)) ? (arrDataRequest[arrLength][0]) : ''
+    };
+    return tcpStringAsHttpRequest;
 }
 
 http = parseTcpStringAsHttpRequest(contents);
