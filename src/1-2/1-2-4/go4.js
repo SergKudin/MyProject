@@ -27,39 +27,77 @@ function processHttpRequest($method, $uri, $headers, $body) {
         ContentType: 'text/html; charset=utf-8',
     }
 
-    let outputHttpResponse = function (statuscode, statusmessage, headers, body) {
+    const CodeRequest = {
+        200: 'OK',
+        400: 'Bad Request',
+        404: 'Not Found',
+        500: 'Internal Server Error'
+    }
+
+    let outputHttpResponse = function (statuscode, headers, body) {
+        let statusmessage = CodeRequest[statuscode];
         headers.ContentLength = (body + '').length;
         return `HTTP/1.1 ${statuscode} ${statusmessage}
-Date: ${headers.Date}
-Server: ${headers.Server}
-Connection: ${headers.Connection}
-Content-Type: ${headers.ContentType}
-Content-Length: ${headers.ContentLength}
-
-${body} `
+  Date: ${headers.Date}
+  Server: ${headers.Server}
+  Content-Length: ${headers.ContentLength}
+  Connection: ${headers.Connection}
+  Content-Type: ${headers.ContentType}
+        
+  ${body} `
     }
 
     // method level
     if ($method.includes('GET')) {
-        // task level
+        // task sum level
         if ($uri.includes('/sum')) {
             // level of task arguments
             if ($uri.includes('?nums=')) {
-                const sum = $uri
-                    .slice($uri.indexOf('=') + 1)
-                    .split(',')
-                    .map(n => parseInt(n))
-                    .reduce((sum, current) => sum + current);
-                return outputHttpResponse(200, 'OK', headers, sum);
+                return outputHttpResponse(200, headers, getSum($uri));
             } else {
-                return outputHttpResponse(400, 'Bad Request', headers, 'bad request');
+                return outputHttpResponse(400, headers, 'bad request');
             }
         } else {
-            return outputHttpResponse(404, 'Not Found', headers, 'not found');
+            return outputHttpResponse(404, headers, 'not found');
+        }
+    } else if ($method.includes('POST')) {
+        // task LoginAndPassword level
+        if ($uri.includes('/api/checkLoginAndPassword')) {
+            const dataBoby = $body.split(/=|&/gm);
+            const arrPass = getPasswords();
+            if (!arrPass) {
+                return outputHttpResponse(500, headers, 'internal server error')
+            }
+            let body = (arrPass.has(dataBoby[1])) ? '<h1 style="color:green">FOUND</h1>' : '<h1 style="color:red">NOT FOUND</h1>';
+            return outputHttpResponse(200, headers, body);
+        } else {
+            return outputHttpResponse(404, headers, 'not found');
         }
     } else {
-        return outputHttpResponse(400, 'Bad Request', headers, 'bad request');
+        return outputHttpResponse(400, headers, 'bad request');
     }
+}
+
+function getSum(param) {
+    return param
+        .slice(param.indexOf('=') + 1)
+        .split(',')
+        .map(n => parseInt(n))
+        .reduce((sum, current) => sum + current);
+}
+
+function getPasswords(file = 'passwords.txt') {
+    // return require('fs').readFileSync(file);
+    const fs = require('fs');
+    const path = require('path');
+    let pass = null;
+    try {
+        pass = new Map(fs.readFileSync(path.resolve(__dirname, file), 'utf8')
+            .split('\r\n')
+            .map(item => item.split(':')));
+    } catch (error) {
+    }
+    return pass;
 }
 
 function parseTcpStringAsHttpRequest(string) {
@@ -92,4 +130,4 @@ http = parseTcpStringAsHttpRequest(contents);
 processHttpRequest(http.method, http.uri, http.headers, http.body);
 
 console.log(processHttpRequest(http.method, http.uri, http.headers, http.body));
-// node tester.js 3 go3.js
+// node tester.js 4 go4.js
