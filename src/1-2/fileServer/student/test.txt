@@ -1,0 +1,2 @@
+student
+reading file student/test.txt
