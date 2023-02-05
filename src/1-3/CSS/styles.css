@@ -1,0 +1,14 @@
+a:link {
+    color: rgb(37, 18, 245);
+  }
+  
+  a:visited {
+    color: rgba(226, 6, 6, 0.879);
+  }
+
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+  }

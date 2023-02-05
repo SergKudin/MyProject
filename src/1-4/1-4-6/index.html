@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<style>
+  .square {
+    height: 50px;
+    width: 50px;
+    background-color: rgb(255, 0, 0);
+    float:left; 
+    margin: 15px 0 15px 15px; 
+    padding: 10px;
+  }
+  .hidden {
+    display: none;
+  } 
+</style>
+
+<body>
+  <button type="button" 
+  onclick="alert('Click!')"
+  onmouseover="document.getElementById('sqr1').classList.remove('hidden')"
+  onmouseout="document.getElementById('sqr1').classList.add('hidden')">
+  Point to me 
+</button>   
+<br>
+<div class="square hidden" id='sqr1'> </div>
+
+<script>
+
+  function hello() {
+    alert('Hello!!!')
+    document.getElementById("sqr1").setAttribute('onclick','switchingElements()');
+  }
+
+  function switchingElements() {
+      let objects = document.getElementsByClassName("square");
+      for (let obj of objects) {
+          switchingElement(obj.id);
+      }
+  }
+
+  function switchingElement(idElement){
+      if (document.getElementById(idElement).className.includes('hidden')) {
+          document.getElementById(idElement).classList.remove('hidden')
+      } else {
+          document.getElementById(idElement).classList.add('hidden');
+      }
+  }
+</script>
+</body>
+</html>

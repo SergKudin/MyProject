@@ -6,7 +6,8 @@ const app = express();
 
 //-----Constants-------
 const port = 8000;
-const file = '\\data\\visiter.txt'
+const fileCounter = 'visiter.txt'
+const pathData = 'data'
 
 app.get('/hello', (req, res) => {
     res.send(visitCounter());
@@ -22,18 +23,16 @@ let visitCounter = function () {
 }
 
 function getVisitor() {
-    let pathFile = path.resolve(__dirname) + path.normalize(file);
-    let fileContents = null;
+    let pathFile = path.join(__dirname, pathData, fileCounter);
+    let fileContents = 0;
     try {
         fileContents = fs.readFileSync(pathFile, 'utf8');
-    } catch (error) {
-        fs.writeFileSync(pathFile, '0');
-        fileContents = '0';
-    };
-    fileContents = (parseInt(fileContents) + 1) + '';
+    } catch (error) { };
     try {
+        fileContents = (parseInt(fileContents) + 1) + '';
         fs.writeFileSync(pathFile, fileContents);
     } catch (error) {
+        fileContents = null;
     }
     return fileContents;
 }

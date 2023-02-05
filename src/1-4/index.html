@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="CSS/styles.css">
+    <meta charset="UTF-8">
+    <title>1-4.frontend-JS</title>
+</head>
+
+<body>
+
+
+<div class = "container">
+  <div class="task">
+      <h1>Task 1-3</h1>
+
+      <div class="buttoms">
+        <button type="button" 
+          onclick="document.getElementById('square1').style.display= 'none' ">
+          CSS hide square 
+        </button> 
+
+        <button type="button" 
+          onclick="hideSquare()">
+          JS hide square 
+        </button>   
+
+        <button type="button" 
+          onclick="switchingElements()">
+          CSS+JS hide square 
+        </button>   
+      </div>
+
+      <div class = square id = "square1"></div>
+      <div class = square id = "square2"></div>
+      <div class = square id = "square3"></div>
+      <div class = square id = "square4"></div>
+      <div class = square id = "square5"></div>
+
+  </div>
+
+  <div class="task">
+      <h1>Task 4</h1>
+    <form>
+      Query selector: <input type="text" name="querySelector" id="querySelector">
+      <input type = "submit" name = "submit" value = "Submit" onclick="switchingElementByCss()">
+    </form>
+  </div>
+</div>
+
+
+       
+</body>
+
+
+<script>
+  function hideSquare(){
+   let sqr = document.getElementById('square1');
+   sqr.parentNode.removeChild(sqr);
+  }
+
+  function switchingElements() {
+      let objects = document.getElementsByClassName("square");
+      for (let obj of objects) {
+          switchingElement(obj.id);
+      }
+  }
+
+  function switchingElement(idElement){
+      if (document.getElementById(idElement).className.includes('hidden')) {
+          document.getElementById(idElement).classList.remove('hidden')
+      } else {
+          document.getElementById(idElement).classList.add('hidden');
+      }
+  }
+ 
+  function getQuerySelector() {
+      let getQuerySelector = document.getElementById('querySelector').value;
+     alert (getQuerySelector);
+      console.log(getQuerySelector);
+    }
+
+  function switchingElementByCss(){
+    let cssElements = document.getElementById('querySelector').value;
+    let objects = document.querySelectorAll(cssElements);
+      for (let obj of objects) {
+      if (obj.className.includes('hidden')) {
+        obj.classList.remove('hidden')
+      } else {
+        obj.classList.add('hidden');
+       }     
+     }
+  }
+
+</script>
+
+</html>
