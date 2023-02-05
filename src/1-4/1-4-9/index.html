@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div class="task">
+      <h1>Task 8</h1>
+      <form>
+        <label for="imgAdress">Enter images adress:</label>
+        <textarea id="imgAdress" name="imgAdress"
+                  rows="5" cols="50">img/im1.jpg
+        </textarea>
+        <button type="button" id="button" onclick="addImages()"> Submit </button>  
+      </form>
+    </div>
+    <br>
+    <div id="images">
+    </div>
+    
+
+    <script>
+
+      function addImage(n, srcImg) {
+        let newImg = document.createElement('img');
+        newImg.id = 'image' + n;
+        newImg.src = srcImg;
+        document.getElementById('images').appendChild(newImg);
+      };
+
+      function addImages() {
+        const adr = imgAdress.value.split('\n');
+        for (let adress of adr) {
+          addImage(1,adress);
+      };
+    }
+    </script>
+  </body>
+</html>
