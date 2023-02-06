@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1-4.frontend-JS</title>
+<!-- The task was made on the basis of materials from the site https://itchief.ru/javascript/btn-up -->
+
+  <style>
+    body {
+      min-height: 3000px;
+    }
+
+    .btn-up {
+      position: fixed;
+      background-color: #00f7ff;
+      right: 20px;
+      bottom: 30px;
+      border-radius: 25px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.15s ease-in-out, transform 0.3s ease-in-out;
+      color: #fff;
+      width: 50px;
+      height: 50px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .btn-up_hide {
+      display: none;
+    }
+
+    .btn-up_hiding {
+      opacity: 0;
+      transform: translateY(100px);
+    }
+
+    .btn-up-icon {
+      width: 40px;
+      height: 40px;
+      fill: currentcolor;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .btn-up:hover {
+        background-color: #14b7bc;
+      }
+    }
+
+  </style>
+
+</head>
+<body>
+  <h1>Task 14</h1>
+
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="arrow-up-short" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z" />
+    </symbol>
+  </svg>
+
+
+  <div class="btn-up btn-up_hide">
+    <svg class="btn-up-icon" role="img" aria-label="Прокрутить страницу к началу">
+      <use xlink:href="#arrow-up-short"></use>
+    </svg>
+  </div>
+
+  <script>
+    const btnUp = {
+      el: document.querySelector('.btn-up'),
+      scrolling: false,
+      show() {
+        if (this.el.classList.contains('btn-up_hide') && !this.el.classList.contains('btn-up_hiding')) {
+          this.el.classList.remove('btn-up_hide');
+          this.el.classList.add('btn-up_hiding');
+          window.setTimeout(() => {
+            this.el.classList.remove('btn-up_hiding');
+          }, 300);
+        }
+      },
+      hide() {
+        if (!this.el.classList.contains('btn-up_hide') && !this.el.classList.contains('btn-up_hiding')) {
+          this.el.classList.add('btn-up_hiding');
+          window.setTimeout(() => {
+            this.el.classList.add('btn-up_hide');
+            this.el.classList.remove('btn-up_hiding');
+          }, 300);
+        }
+      },
+      addEventListener() {
+        // when scrolling the window (window)
+        window.addEventListener('scroll', () => {
+          const scrollY = window.scrollY || document.documentElement.scrollTop;
+          if (this.scrolling && scrollY > 0) {
+            return;
+          }
+          this.scrolling = false;
+          // if the user has scrolled the page more than 200px
+          if (scrollY > 400) {
+            // make the .btn-up button visible
+            this.show();
+          } else {
+          // otherwise hide the button .btn-up
+            this.hide();
+          }
+        });
+        // on button click .btn-up
+        document.querySelector('.btn-up').onclick = () => {
+          this.scrolling = true;
+          this.hide();
+          // move to the top of the page
+          window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+          });
+        }
+      }
+    }
+
+    btnUp.addEventListener();
+  </script>
+ 
+</body>
+</html>
+

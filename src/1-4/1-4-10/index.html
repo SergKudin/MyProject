@@ -4,28 +4,46 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>1-4.frontend-JS</title>
   </head>
 
   <body>
     <div class="task">
-      <h1>Task 10</h1>
+      <h1>Task 10-12</h1>
     </div>    
-    <div class="dataOut">
-      <input id="mouseXY" 
-      style="position: absolute;
-      top:5px; 
-      right: 5px;" 
-      value="">
+    <div>
+      <p id="dataOut" style="position:absolute; top:5px; right: 5px;"></p>
     </div>
 
     <script>
       addEventListener("mousemove", moved);
+      const x = document.getElementById('dataOut');
+      let userLang = navigator.language || navigator.userLanguage;
+      let dataLocation = 'Sorry.<br>Geolocation is not supported<br>by this browser.';
+
+      window.onload = function () {
+      getLocation();
+      x.innerHTML =  `MouseX: 0<br>MouseY: 0<br>UserLang: ${userLang}<br>${dataLocation}`;
+      }
 
       function moved(event) {
-      let mouseXY = document.getElementById("mouseXY");
-      console.log(event.clientX + ':' + event.clientY);
-      mouseXY.value = event.clientX + ':' + event.clientY;
+      x.innerHTML = `MouseX: ${event.clientX}<br>MouseY: ${event.clientY}<br>UserLang: ${userLang}<br>${dataLocation}`;
+      }
+
+      function getLocation() {
+        let geolocation = navigator.geolocation;
+        geolocation.getCurrentPosition(showLocation, errorHandler);
+      }
+
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } 
+      }
+
+      function showPosition(position) {
+        dataLocation = "Latitude: " + position.coords.latitude + 
+        "<br>Longitude: " + position.coords.longitude;
       }
     </script>
   </body>

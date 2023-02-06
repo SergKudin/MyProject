@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1-4.frontend-JS</title>
+  <style>
+    .block1 {
+      min-height: 100px;
+      background-color: #19f905;
+    }
+    .block2 {
+      min-height: 40px;
+      background-color: #96fbff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Task 15</h1>
+  <div id="block1" class="block1" onclick="block1Alert()">
+    <p>Block 1</p>
+    <div id="block2" class="block2" onclick="block2Alert()">
+      <p>Block 2</p></div>  
+  </div>
+
+  <script>
+    let clickBlock2;
+    function block1Alert () {
+      if (!clickBlock2) {
+      // alert(event.target.id);
+      alert('block1');
+      }
+      clickBlock2 = false;
+    }
+    function block2Alert () {
+      clickBlock2 = true;
+      // alert(event.target.id);
+      alert('block2');
+    }
+  </script>
+</body>
+</html>
