@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1-4.frontend-JS</title>
+  <style>
+    body {
+      min-height: 3000px;
+    }
+    .overflow {
+      overflow: hidden;
+    }
+    .block1 {
+      min-height: 100px;
+      background-color: #19f905;
+    }
+    .block2 {
+      min-height: 40px;
+      background-color: #96fbff;
+    }
+    .hidden {
+    display: none;
+    }
+    .square {
+    height: -webkit-fill-available;
+    width: -webkit-fill-available;
+    background-color: rgba(147, 147, 147, 0.4);
+    position: fixed;
+    left: 0;
+    top: 0px;
+    padding: 10px;
+    }
+    
+
+  </style>
+</head>
+<body id="body">
+  <h1>Task 17</h1>
+    <div id="block1" class="block1">
+      <p>Block 1</p>
+      <div id="block2" class="block2">
+        <p>Block 2</p></div>  
+    </div>
+<button type="button"  id="button1">Click me</button>
+  <div class = 'square hidden' id = "square1">  </div>
+
+  <form><br><input type="submit" value="GO" onclick="return false"></form>
+
+  <script>
+    button1.addEventListener('click',graySquareOn);
+    square1.addEventListener('click',graySquareOff);
+    function graySquareOn () {
+      square1.classList.remove('hidden');
+      body.classList.add('overflow');
+    }
+    function graySquareOff () {
+      square1.classList.add('hidden');
+      body.classList.remove('overflow');
+    }
+ 
+
+  </script>
+</body>
+</html>
