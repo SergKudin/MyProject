@@ -18,26 +18,31 @@
 </head>
 <body>
   <h1>Task 15</h1>
-  <div id="block1" class="block1" onclick="block1Alert()">
+  <div id="block1" class="block1">
     <p>Block 1</p>
-    <div id="block2" class="block2" onclick="block2Alert()">
+    <div id="block2" class="block2">
       <p>Block 2</p></div>  
   </div>
 
   <script>
-    let clickBlock2;
-    function block1Alert () {
-      if (!clickBlock2) {
-      // alert(event.target.id);
-      alert('block1');
-      }
-      clickBlock2 = false;
-    }
-    function block2Alert () {
-      clickBlock2 = true;
-      // alert(event.target.id);
-      alert('block2');
-    }
+    block1.onclick = function(event) {
+    if (event.defaultPrevented) return;
+    event.preventDefault();
+    alert('block1');
+  };
+
+  block2.onclick = function(event) {
+    if (event.defaultPrevented) return;
+    event.preventDefault();
+    alert('block2');
+  };
+
+  document.onclick = function(event) {
+    if (event.defaultPrevented) return;
+
+    event.preventDefault();
+    alert('body');
+  };
   </script>
 </body>
 </html>
