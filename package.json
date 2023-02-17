@@ -2,7 +2,7 @@
   "name": "skudin",
   "version": "1.0.0",
   "description": "code I write as part of the Node-JS course in SHPP",
-  "main": "src\\1-2\\1-2-6\\go6.js",
+  "main": "src\\2-3\\tcpClient.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
